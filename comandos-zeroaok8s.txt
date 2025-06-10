@@ -1,0 +1,24 @@
+## REQUISITOS
+Instalar = docker, kubectl, k3d ou kind
+
+##comandos
+
+- Criar cluster utilizando k3s
+k3d cluster create meucluster --servers 3 --agents 3 -p "30000:30000@loadbalancer"
+
+- Criar img e subir no dockerhub
+docker build -t luuucasmoreia/conversao-temperatura:v1 --push .
+
+## COMANDOS DO K8S UTILIZADOS
+
+- Aplicar yamls
+acessar a pasta se preferir ou colocar o caminho inteiro do yamls
+kubectl apply -f deployment.yaml
+(Deploys de subir, pode verificar no https:localhost:30000)
+
+- Verificação
+kubectl get pods ##pode mudar para deployments, replicasets, services ...
+
+- Verificação Geral
+kubectl get all
+
