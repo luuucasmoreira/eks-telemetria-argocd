@@ -90,3 +90,51 @@ kubectl apply -f k8s/deployment -f k8s/service.yaml
 
 E verifique seu serviço em:
 [http://localhost:30000](http://localhost:30000)
+
+###########################################
+
+## Instalação do ArgoCD
+
+Referencia Link: https://argo-cd.readthedocs.io/en/stable/getting_started/
+
+
+Criação do namespace argocd e instalação
+```sh
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+Pegar a senha admin
+```sh
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+```
+
+Editar service do argocd
+```sh
+kubectl edit svc/argocd-server -n argocd
+```
+
+Na lista que irá abrir, mude o type para Load Balancer
+
+ficará algo parecido com isso
+
+```sh
+selector:
+    app.kubernetes.io/name: argocd-server
+  sessionAffinity: None
+  type: LoadBalancer #Mudar essa linha
+status:
+  loadBalancer: {}
+```
+
+Verificando o services ele ja mostra um IP que foi gerado depois de editar
+```ssh
+kubectl get svc -n argocd
+```
+No argocd-server irá mostrar o IP
+OBS: só irá conseguir se estiver utilizando metalB ou Cloud provider (AWS, Azure, Etc..)
+
+Agora é só acessar localhost:8080 e ja ira acessar o browser do argocd
+
+## Organizando Fluxo do GitOps
+
+Utilize o github de uma aplicação
