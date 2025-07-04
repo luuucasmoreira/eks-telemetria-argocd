@@ -164,3 +164,10 @@ https://opentelemetry.io/
 
 - Etapas
 Repositorio de app para test de observabilidade 
+
+- Metodos de Metricas Utilizadas
+-- Counter = dado  numerico que sempre incrementa
+-- Gouge = pode sempre almentar ou diminuir (EX: Cpu, memoria)
+-- Histogram = Não trabalha com valor preciso, mas sim com range de valores, (Ex: tempo de resposta de uma requisição, tamanho de bory de uma app), ou seja, eu nao quero um valor exato, eu quero observar em uma faixa de tempo.
+-- Sumarry = dados percentual (OPEN TELEMETRY NÂO TEM O SUMMARY), porem da pra fazer em um grafana
+-- Exporter = responsavel por enviar dados coletados para um destino especifico
